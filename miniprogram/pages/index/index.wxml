@@ -1,0 +1,50 @@
+<!-- 首页 -->
+<view class="page">
+  <!-- banner -->
+  <view class="banner">
+    <image src="{{company.banner}}" mode="aspectFill" class="banner-img"/>
+    <view class="banner-overlay">
+      <text class="banner-title">{{company.name}}</text>
+      <text class="banner-desc">{{company.slogan}}</text>
+    </view>
+  </view>
+
+  <!-- 快捷入口 -->
+  <view class="quick-actions">
+    <view class="action-item" wx:for="{{quickActions}}" wx:key="id" bindtap="onAction" data-action="{{item.action}}">
+      <image src="{{item.icon}}" class="action-icon"/>
+      <text>{{item.name}}</text>
+    </view>
+  </view>
+
+  <!-- 服务项目 -->
+  <view class="section-title">服务项目</view>
+  <view class="service-list">
+    <view class="card service-card" wx:for="{{services}}" wx:key="id" bindtap="onServiceTap" data-id="{{item.id}}">
+      <image src="{{item.cover}}" mode="aspectFill" class="service-img"/>
+      <view class="service-info">
+        <text class="service-name">{{item.name}}</text>
+        <text class="service-desc">{{item.desc}}</text>
+        <view class="flex-between">
+          <text class="service-price">¥{{item.price}}</text>
+          <text class="btn-book">预约</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 关于我们 -->
+  <view class="section-title">关于我们</view>
+  <view class="card about-card">
+    <text class="about-text">{{company.about}}</text>
+    <view class="contact-row">
+      <text>📞 {{company.phone}}</text>
+      <text bindtap="onCall">立即拨打</text>
+    </view>
+  </view>
+
+  <!-- 底部 -->
+  <view class="footer">
+    <text>{{company.name}} © 2026</text>
+  </view>
+</view>

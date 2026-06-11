@@ -1,0 +1,37 @@
+<!-- 预约详情页 -->
+<view class="page">
+  <image src="{{service.cover}}" mode="aspectFill" class="header-img"/>
+
+  <view class="card">
+    <text class="service-title">{{service.name}}</text>
+    <text class="service-price">¥{{service.price}}</text>
+    <text class="service-desc">{{service.desc}}</text>
+  </view>
+
+  <view class="section-title">预约时间</view>
+  <view class="card">
+    <picker mode="date" value="{{date}}" bindchange="onDateChange">
+      <view class="picker-row">
+        <text>日期</text>
+        <text class="picker-val">{{date || '请选择日期'}}</text>
+      </view>
+    </picker>
+    <picker mode="time" value="{{time}}" bindchange="onTimeChange" style="margin-top:20rpx">
+      <view class="picker-row">
+        <text>时间</text>
+        <text class="picker-val">{{time || '请选择时间'}}</text>
+      </view>
+    </picker>
+  </view>
+
+  <view class="section-title">联系信息</view>
+  <view class="card">
+    <input placeholder="您的姓名" value="{{name}}" bindinput="onNameInput" class="form-input"/>
+    <input placeholder="手机号码" type="number" value="{{phone}}" bindinput="onPhoneInput" class="form-input"/>
+    <textarea placeholder="备注（选填）" value="{{remark}}" bindinput="onRemarkInput" class="form-textarea"/>
+  </view>
+
+  <button class="btn-submit" bindtap="onSubmit">确认预约</button>
+
+  <view class="footer">提交即表示同意《服务协议》</view>
+</view>
