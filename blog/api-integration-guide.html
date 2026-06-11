@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="description" content="第三方API对接实战：电商平台接口集成。签名认证、限流处理、数据同步。承接API定制开发。">
+<meta name="keywords" content="API对接,API开发,接口集成,电商API,开放平台,API定制">
+<title>第三方API对接实战：电商平台接口集成 | DevZhou Blog</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;background:#0f172a;color:#e2e8f0;line-height:1.8}
+.wrap{max-width:760px;margin:0 auto;padding:20px}
+header{background:#1e293b;border-bottom:1px solid #334155;padding:16px 0;margin-bottom:30px}
+header a{color:#3b82f6;text-decoration:none}
+article h1{font-size:32px;color:#f8fafc;margin:20px 0 10px}
+article .date{color:#64748b;font-size:14px;margin-bottom:30px}
+article h2{font-size:22px;color:#f8fafc;margin:30px 0 12px;padding-bottom:8px;border-bottom:1px solid #1e293b}
+article p{color:#94a3b8;margin:12px 0}
+article pre{background:#0f172a;border:1px solid #334155;border-radius:8px;padding:20px;overflow:auto;font-size:13px}
+article code{font-family:'SF Mono',Monaco,monospace;font-size:13px;color:#86efac}
+article ul,article ol{padding-left:24px;margin:12px 0;color:#94a3b8}
+article li{margin:6px 0}
+.cta{background:linear-gradient(135deg,#1e293b,#0f172a);border:1px solid #334155;border-radius:12px;padding:32px;text-align:center;margin:40px 0}
+.cta h3{font-size:20px;margin-bottom:8px;color:#f8fafc}
+.cta p{color:#94a3b8;margin-bottom:16px}
+.cta a{display:inline-block;padding:12px 28px;background:#3b82f6;color:#fff;text-decoration:none;border-radius:8px;font-weight:600}
+</style>
+</head>
+<body>
+<header><div class="wrap"><a href="index.html">← 返回博客</a></div></header>
+<div class="wrap">
+<article>
+<h1>第三方API对接实战：电商平台接口集成</h1>
+<div class="date">2026-06-01 · 10 min read</div>
+
+<p>对接第三方API是很多企业项目的核心需求——跨境ERP需要对接1688、淘宝、拼多多；SaaS产品需要对接支付宝、微信支付；数据平台需要对接各种开放平台。本文分享我帮客户对接电商API的实战经验。</p>
+
+<h2>1. 常见对接场景</h2>
+<ul>
+<li><strong>商品同步</strong>：从1688/淘宝批量拉取商品信息到自有系统</li>
+<li><strong>订单管理</strong>：多平台订单统一管理、自动发货</li>
+<li><strong>库存同步</strong>：实时库存更新、多仓联动</li>
+<li><strong>物流追踪</strong>：对接快递鸟/快递100等物流API</li>
+<li><strong>财务对账</strong>：对接支付宝/微信支付账单</li>
+</ul>
+
+<h2>2. 核心挑战与解决方案</h2>
+
+<h3>签名认证</h3>
+<p>绝大部分中国电商API使用HMAC-SHA256或MD5签名：</p>
+<pre><code>import hmac, hashlib, time, urllib.parse
+
+def sign_request(params, app_secret):
+    # 1. 排序参数
+    sorted_params = sorted(params.items())
+    # 2. 拼接字符串
+    sign_str = app_secret + ''.join(
+        f'{k}{v}' for k, v in sorted_params
+    ) + app_secret
+    # 3. MD5签名（部分平台用HMAC-SHA256）
+    return hashlib.md5(sign_str.encode()).hexdigest().upper()
+
+# 使用示例
+params = {
+    'method': 'taobao.item.get',
+    'app_key': '12345678',
+    'timestamp': str(int(time.time() * 1000)),
+    'format': 'json',
+    'v': '2.0',
+}
+params['sign'] = sign_request(params, APP_SECRET)</code></pre>
+
+<h3>限流处理</h3>
+<pre><code>import time
+from functools import wraps
+
+def rate_limit(max_calls, period=60):
+    """简单的令牌桶限流器"""
+    calls = []
+    def decorator(func):
+        @wraps(func)
+        def wrapper(*args, **kwargs):
+            now = time.time()
+            calls[:] = [c for c in calls if c > now - period]
+            if len(calls) >= max_calls:
+                sleep_time = calls[0] + period - now
+                if sleep_time > 0:
+                    time.sleep(sleep_time)
+            calls.append(time.time())
+            return func(*args, **kwargs)
+        return wrapper
+    return decorator
+
+@rate_limit(max_calls=30)  # 每分钟最多30次
+def call_api(endpoint, params):
+    return requests.post(endpoint, json=params)</code></pre>
+
+<h3>数据同步策略</h3>
+<ol>
+<li><strong>增量同步</strong>：使用updated_at字段，只拉取变更数据</li>
+<li><strong>分页处理</strong>：page_size+page_no，处理大数据量</li>
+<li><strong>失败重试</strong>：指数退避，最多3次</li>
+<li><strong>幂等设计</strong>：使用唯一业务键，防止重复写入</li>
+</ol>
+
+<h2>3. 实战案例</h2>
+<p>最近帮一个跨境电商客户对接了俄罗斯Ozon平台的API，实现了：</p>
+<ul>
+<li>商品自动上架（从1688一键代发到Ozon）</li>
+<li>订单自动同步和状态更新</li>
+<li>物流单号自动回传</li>
+<li>日处理订单量：500+</li>
+</ul>
+
+<h2>4. 对接前的准备清单</h2>
+<ol>
+<li>确认API文档是否齐全（有没有中文版）</li>
+<li>申请AppKey/AppSecret（通常需要企业资质）</li>
+<li>准备测试环境（沙箱/sandbox）</li>
+<li>确认调用频率限制（QPS/day limit）</li>
+<li>确认数据字段映射（自己的系统和API返回的数据怎么对应）</li>
+</ol>
+</article>
+
+<div class="cta"><h3>需要API对接开发？</h3>
+<p>我接API集成定制——电商平台、支付网关、物流快递、第三方系统对接。2000-5000元，3-5天交付。</p>
+<a href="https://github.com/ZHOUZHOU-Yvonne">联系我 → GitHub</a></div>
+</div>
+</body>
+</html>
