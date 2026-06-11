@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="description" content="Python Excel自动化实战：用openpyxl+pandas实现报表自动生成、数据合并、格式处理。告别重复劳动。承接Excel自动化定制开发。">
+<meta name="keywords" content="Excel自动化,Python Excel,报表自动化,openpyxl,pandas,Excel定制开发">
+<title>Excel自动化：用Python告别重复劳动 | DevZhou Blog</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;background:#0f172a;color:#e2e8f0;line-height:1.8}
+.wrap{max-width:760px;margin:0 auto;padding:20px}
+header{background:#1e293b;border-bottom:1px solid #334155;padding:16px 0;margin-bottom:30px}
+header a{color:#3b82f6;text-decoration:none}
+article h1{font-size:32px;color:#f8fafc;margin:20px 0 10px}
+article .date{color:#64748b;font-size:14px;margin-bottom:30px}
+article h2{font-size:22px;color:#f8fafc;margin:30px 0 12px;padding-bottom:8px;border-bottom:1px solid #1e293b}
+article p{color:#94a3b8;margin:12px 0}
+article pre{background:#0f172a;border:1px solid #334155;border-radius:8px;padding:20px;overflow:auto;font-size:13px}
+article code{font-family:'SF Mono',Monaco,monospace;font-size:13px;color:#86efac}
+article ul,article ol{padding-left:24px;margin:12px 0;color:#94a3b8}
+article li{margin:6px 0}
+.cta{background:linear-gradient(135deg,#1e293b,#0f172a);border:1px solid #334155;border-radius:12px;padding:32px;text-align:center;margin:40px 0}
+.cta h3{font-size:20px;margin-bottom:8px;color:#f8fafc}
+.cta p{color:#94a3b8;margin-bottom:16px}
+.cta a{display:inline-block;padding:12px 28px;background:#3b82f6;color:#fff;text-decoration:none;border-radius:8px;font-weight:600}
+</style>
+</head>
+<body>
+<header><div class="wrap"><a href="index.html">← 返回博客</a></div></header>
+<div class="wrap">
+<article>
+<h1>Excel自动化：用Python告别重复劳动</h1>
+<div class="date">2026-06-05 · 8 min read</div>
+
+<p>每天花2小时手动处理Excel报表？合并、拆分、格式调整、图表生成——这些事情Python可以在30秒内完成。本文分享我用Python自动化Excel工作流的实战经验。</p>
+
+<h2>1. 工具选型</h2>
+<ul>
+<li><strong>openpyxl</strong>：读写.xlsx文件，支持样式、公式、图表</li>
+<li><strong>pandas</strong>：数据处理和分析，批量操作</li>
+<li><strong>xlwings</strong>：与Excel应用程序交互（需要安装Excel）</li>
+</ul>
+
+<h2>2. 常见场景及代码</h2>
+
+<h3>场景一：多文件合并</h3>
+<p>财务每月发来30个部门的Excel，需要合并成一个总表：</p>
+<pre><code>import pandas as pd
+from pathlib import Path
+
+def merge_excel_files(folder, output):
+    files = Path(folder).glob('*.xlsx')
+    dfs = [pd.read_excel(f) for f in files]
+    result = pd.concat(dfs, ignore_index=True)
+    result.to_excel(output, index=False)
+    print(f'Merged {len(dfs)} files → {output}')
+
+merge_excel_files('部门报表/', '月度汇总.xlsx')</code></pre>
+
+<h3>场景二：自动生成格式化报表</h3>
+<pre><code>from openpyxl import Workbook
+from openpyxl.styles import Font, PatternFill, Border, Side
+
+wb = Workbook()
+ws = wb.active
+
+# 设置标题样式
+header_font = Font(bold=True, color='FFFFFF', size=12)
+header_fill = PatternFill(start_color='4472C4', fill_type='solid')
+
+headers = ['日期', '销售额', '订单数', '客单价']
+for col, h in enumerate(headers, 1):
+    cell = ws.cell(row=1, column=col, value=h)
+    cell.font = header_font
+    cell.fill = header_fill
+
+# 填入数据并自动添加边框和数字格式
+for row, record in enumerate(data, 2):
+    ws.cell(row=row, column=1, value=record['date'])
+    ws.cell(row=row, column=2, value=record['sales']).number_format = '#,##0'
+    ws.cell(row=row, column=3, value=record['orders'])
+    ws.cell(row=row, column=4, value=record['avg_price']).number_format = '¥#,##0.00'
+
+wb.save('销售日报_20260605.xlsx')</code></pre>
+
+<h3>场景三：数据清洗</h3>
+<pre><code>def clean_sales_data(df):
+    df['金额'] = df['金额'].str.replace('[¥,]', '', regex=True)
+    df['金额'] = pd.to_numeric(df['金额'], errors='coerce')
+    df['日期'] = pd.to_datetime(df['日期'], errors='coerce')
+    df = df.drop_duplicates(subset=['订单号'])
+    return df.dropna(subset=['订单号', '金额'])</code></pre>
+
+<h2>3. 进阶：定时自动运行</h2>
+<p>配合Windows任务计划或cron，实现每天早上8点自动生成并邮件发送报表：</p>
+<pre><code>import smtplib
+from email.mime.multipart import MIMEMultipart
+
+def send_report(filepath, to_email):
+    msg = MIMEMultipart()
+    msg['Subject'] = f'日报 {date.today()}'
+    msg['From'] = 'report@company.com'
+    msg['To'] = to_email
+    with open(filepath, 'rb') as f:
+        msg.attach(MIMEBase('application', 'octet-stream', payload=f.read()))
+    # SMTP发送逻辑...</code></pre>
+
+<h2>4. 投入产出比</h2>
+<p>一个典型的Excel自动化项目：</p>
+<ul>
+<li>开发时间：2-4小时</li>
+<li>节省时间：每天1-3小时 × 全年250个工作日</li>
+<li>投资回报：一周内回本</li>
+</ul>
+</article>
+
+<div class="cta">
+<h3>需要Excel自动化方案？</h3>
+<p>我接Python Excel自动化定制——报表自动生成、数据合并清洗、定时任务部署。500-2000元，1-2天交付。</p>
+<a href="https://github.com/ZHOUZHOU-Yvonne">联系我 → GitHub</a>
+</div>
+</div>
+</body>
+</html>
