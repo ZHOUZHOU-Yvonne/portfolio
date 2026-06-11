@@ -1,0 +1,32 @@
+# AI 陪伴产品 — 远程全栈开发工程师
+
+- 公司：美国注册，AI陪伴/NSFW伴侣/AI游戏平台
+- 邮箱：peachlandai@gmail.com
+- 岗位：高级全栈开发 (Java + Vue3/TS)、文本训练、视频训练、数据工程
+- 要求：5年全栈经验，Claude Code经验，远程协作
+- 地点：远程
+
+## 邮件模板
+
+Subject: Senior Full-Stack Developer — Remote — Claude Code Expert
+
+Hi,
+
+I came across your V2EX post about the Senior Full-Stack Developer position at your AI companion company.
+
+I'm a full-stack developer with:
+- 5+ years experience in Python, Java, TypeScript, Vue/React
+- Extensive AI-assisted programming experience with Claude Code (daily user)
+- Experience building payment and billing systems
+- Remote collaboration experience with global teams
+
+My GitHub portfolio: github.com/ZHOUZHOU-Yvonne
+(10+ open source projects, 11 web tools, Python libraries)
+
+I'm particularly interested in the AI companion space and have been following developments in LLM applications. I can start immediately and adapt to your fast iteration pace.
+
+Would you be open to a quick chat about the role?
+
+Best,
+Zhou
+zhouyajiezzz@gmail.com
