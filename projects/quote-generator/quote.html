@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>项目报价单 | DevZhou</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;background:#f1f5f9;color:#1e293b;padding:40px 20px}
+.quote{max-width:800px;margin:0 auto;background:#fff;border-radius:12px;box-shadow:0 4px 24px rgba(0,0,0,.08);overflow:hidden}
+.header{background:#1e293b;color:#fff;padding:40px;text-align:center}
+.header h1{font-size:28px;margin-bottom:4px}
+.header .sub{color:#94a3b8;font-size:14px}
+.body{padding:40px}
+.row{display:flex;justify-content:space-between;margin-bottom:32px;flex-wrap:wrap;gap:20px}
+.col h3{font-size:12px;text-transform:uppercase;color:#64748b;letter-spacing:1px;margin-bottom:8px}
+.col p{font-size:14px;color:#475569;line-height:1.6}
+table{width:100%;border-collapse:collapse;margin-bottom:32px}
+th{text-align:left;padding:12px 16px;background:#f8fafc;font-size:12px;text-transform:uppercase;color:#64748b;letter-spacing:.5px;border-bottom:2px solid #e2e8f0}
+td{padding:16px;border-bottom:1px solid #e2e8f0;font-size:14px}
+td:last-child,th:last-child{text-align:right}
+.total-row td{font-weight:700;font-size:16px;border-bottom:none;padding-top:20px}
+.total-row td:last-child{color:#2563eb;font-size:22px}
+.terms{background:#f8fafc;padding:24px;border-radius:8px;margin-bottom:32px}
+.terms h3{font-size:14px;margin-bottom:12px}
+.terms ul{list-style:none;font-size:13px;color:#64748b;line-height:1.8}
+.terms ul li::before{content:'✓ ';color:#22c55e;font-weight:700}
+.footer{text-align:center;padding:24px;color:#94a3b8;font-size:13px;border-top:1px solid #e2e8f0}
+.signature{margin-top:40px}
+.signature .line{border-top:1px solid #cbd5e1;width:200px;margin:40px 0 8px}
+.signature p{font-size:12px;color:#94a3b8}
+@media print{body{background:#fff;padding:0}.quote{box-shadow:none}}
+</style>
+</head>
+<body>
+<div class="quote">
+<div class="header">
+<h1>项目报价单</h1>
+<div class="sub">QUOTATION · 报价日期：2026-06-12</div>
+</div>
+<div class="body">
+<div class="row">
+<div class="col"><h3>服务提供方</h3><p>DevZhou<br>独立全栈开发者<br>zhouyajiezzz@gmail.com<br>github.com/ZHOUZHOU-Yvonne</p></div>
+<div class="col"><h3>客户</h3><p>[客户名称]<br>[公司名称]<br>[联系邮箱]</p></div>
+<div class="col"><h3>报价单号</h3><p>QT-2026-001<br>有效期至：2026-06-26</p></div>
+</div>
+
+<table>
+<thead><tr><th>项目</th><th>描述</th><th style="text-align:center">数量</th><th>单价</th><th>金额</th></tr></thead>
+<tbody>
+<tr><td>需求分析与设计</td><td>需求沟通、原型设计、UI设计</td><td style="text-align:center">1</td><td>¥500</td><td>¥500</td></tr>
+<tr><td>前端开发</td><td>页面开发、响应式适配、交互实现</td><td style="text-align:center">1</td><td>¥2,000</td><td>¥2,000</td></tr>
+<tr><td>后端开发</td><td>API开发、数据库设计、业务逻辑</td><td style="text-align:center">1</td><td>¥2,000</td><td>¥2,000</td></tr>
+<tr><td>测试与部署</td><td>功能测试、性能优化、部署上线</td><td style="text-align:center">1</td><td>¥500</td><td>¥500</td></tr>
+<tr class="total-row"><td colspan="4">合计（人民币）</td><td>¥5,000</td></tr>
+</tbody>
+</table>
+
+<div class="terms"><h3>条款说明</h3>
+<ul>
+<li>报价有效期 14 天</li>
+<li>项目启动需支付 50% 定金</li>
+<li>交付完成后 3 日内支付尾款</li>
+<li>交付内容包括：完整源码、部署文档、使用说明</li>
+<li>交付后提供 30 天免费 Bug 修复</li>
+<li>如需新增功能，另行评估报价</li>
+<li>付款方式：微信支付 / 支付宝 / 银行转账</li>
+</ul>
+</div>
+
+<div class="signature">
+<p>服务提供方签名：</p>
+<div class="line"></div>
+<p>DevZhou · 日期：________________</p>
+</div>
+</div>
+<div class="footer"><p>此报价单由 DevZhou 生成 · zhouyajiezzz@gmail.com</p></div>
+</div>
+</body>
+</html>
