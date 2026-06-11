@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="description" content="微信小程序开发全流程指南：从注册、项目搭建、页面开发到审核上线。附完整模板源码。承接小程序定制开发。">
+<meta name="keywords" content="微信小程序开发,小程序定制,小程序外包,微信小程序教程,小程序商城">
+<title>微信小程序开发全流程：从注册到上线 | DevZhou Blog</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;background:#0f172a;color:#e2e8f0;line-height:1.8}
+.wrap{max-width:760px;margin:0 auto;padding:20px}
+header{background:#1e293b;border-bottom:1px solid #334155;padding:16px 0;margin-bottom:30px}
+header a{color:#3b82f6;text-decoration:none}
+article h1{font-size:32px;color:#f8fafc;margin:20px 0 10px}
+article .date{color:#64748b;font-size:14px;margin-bottom:30px}
+article h2{font-size:22px;color:#f8fafc;margin:30px 0 12px;padding-bottom:8px;border-bottom:1px solid #1e293b}
+article p{color:#94a3b8;margin:12px 0}
+article pre{background:#0f172a;border:1px solid #334155;border-radius:8px;padding:20px;overflow:auto;font-size:13px}
+article code{font-family:'SF Mono',Monaco,monospace;font-size:13px;color:#86efac}
+article ul,article ol{padding-left:24px;margin:12px 0;color:#94a3b8}
+article li{margin:6px 0}
+.cta{background:linear-gradient(135deg,#1e293b,#0f172a);border:1px solid #334155;border-radius:12px;padding:32px;text-align:center;margin:40px 0}
+.cta h3{font-size:20px;margin-bottom:8px;color:#f8fafc}
+.cta p{color:#94a3b8;margin-bottom:16px}
+.cta a{display:inline-block;padding:12px 28px;background:#3b82f6;color:#fff;text-decoration:none;border-radius:8px;font-weight:600}
+</style>
+</head>
+<body>
+<header><div class="wrap"><a href="index.html">← 返回博客</a></div></header>
+<div class="wrap">
+<article>
+<h1>微信小程序开发全流程：从注册到上线</h1>
+<div class="date">2026-06-08 · 10 min read</div>
+
+<p>微信小程序月活超10亿，是企业触达用户的黄金渠道。本文分享从零开发一个小程序的完整流程，适合有前端基础的开发者。</p>
+
+<h2>1. 注册与准备</h2>
+<ol>
+  <li>访问 mp.weixin.qq.com 注册小程序账号（需邮箱+手机号）</li>
+  <li>下载微信开发者工具</li>
+  <li>在后台获取 AppID</li>
+  <li>配置服务器域名白名单（request、uploadFile等合法域名）</li>
+</ol>
+
+<h2>2. 项目结构</h2>
+<pre><code>miniprogram/
+├── app.js          # 小程序入口
+├── app.json        # 全局配置
+├── app.wxss        # 全局样式
+├── pages/          # 页面目录
+│   ├── index/      # 首页
+│   │   ├── index.wxml   # 页面模板
+│   │   ├── index.js     # 页面逻辑
+│   │   └── index.wxss   # 页面样式
+│   └── detail/     # 详情页
+├── components/     # 自定义组件
+├── utils/          # 工具函数
+└── images/         # 图片资源</code></pre>
+
+<h2>3. 核心开发</h2>
+<p><strong>页面模板 (WXML)</strong> — 类似HTML，使用小程序专用组件：</p>
+<pre><code>&lt;view class="container"&gt;
+  &lt;swiper indicator-dots autoplay&gt;
+    &lt;swiper-item wx:for="{{banners}}" wx:key="id"&gt;
+      &lt;image src="{{item.image}}" mode="aspectFill"/&gt;
+    &lt;/swiper-item&gt;
+  &lt;/swiper&gt;
+  &lt;view class="service-list"&gt;
+    &lt;view wx:for="{{services}}" wx:key="id" bindtap="onTap"&gt;
+      {{item.name}} - ¥{{item.price}}
+    &lt;/view&gt;
+  &lt;/view&gt;
+&lt;/view&gt;</code></pre>
+
+<h2>4. 常用功能实现</h2>
+<ul>
+  <li><strong>用户登录</strong>：wx.login()获取code → 服务端换取openid</li>
+  <li><strong>支付对接</strong>：wx.requestPayment() → 服务端调用微信支付API</li>
+  <li><strong>地图定位</strong>：wx.getLocation() + map组件</li>
+  <li><strong>图片上传</strong>：wx.chooseImage() + wx.uploadFile()</li>
+  <li><strong>分享裂变</strong>：onShareAppMessage() 自定义分享卡片</li>
+</ul>
+
+<h2>5. 审核与上线</h2>
+<p>提交审核前检查清单：</p>
+<ol>
+  <li>所有功能可正常使用（无空白页、无报错）</li>
+  <li>类目选择正确（企业/个体户对应不同类目）</li>
+  <li>隐私协议完整（设置→基本设置→隐私保护指引）</li>
+  <li>无测试数据残留</li>
+  <li>服务器域名已配置且HTTPS可用</li>
+</ol>
+<p>审核通常1-3个工作日。首次提交建议选择"不发布"，审核通过后手动发布。</p>
+
+<h2>6. 小程序 vs H5 vs App</h2>
+<p>给潜在客户的技术选型建议：</p>
+<ul>
+  <li><strong>预算有限、需要微信生态</strong> → 小程序</li>
+  <li><strong>需要SEO、分享到朋友圈</strong> → H5网页</li>
+  <li><strong>复杂交互、推送通知</strong> → App</li>
+</ul>
+</article>
+
+<div class="cta">
+  <h3>需要定制小程序？</h3>
+  <p>我接微信小程序定制开发——商城、预约、企业展示、工具类。3-5天交付，源码+部署+售后。</p>
+  <a href="https://github.com/ZHOUZHOU-Yvonne">联系我 → GitHub</a>
+</div>
+</div>
+</body>
+</html>
