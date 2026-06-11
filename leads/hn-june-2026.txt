@@ -1,0 +1,39 @@
+# Hacker News "Who is Hiring" June 2026 — Viable Leads
+# Sorted by relevance to freelance/contract developer
+
+## 🔥 CONTRACT / FREELANCE
+
+1. Servicing Copilot | Senior Full-Stack Contractor | REMOTE | $5k bake-off → ~6 month contract | CAD $130-180/hr
+   Contact: info@readifinancial.com
+   Stack: Full-stack, AI-native operations tool
+
+2. DrSwarm | Founding Engineer (Full-Stack) | REMOTE (US/LATAM) | Full-time or CONTRACT
+   Contact: jobs@drswarm.com
+   Stack: AI workflow automation for healthcare
+
+## 💼 FULL-TIME REMOTE (potential to negotiate contract)
+
+3. MixRank (YC S11) | Software Engineers | 100% Remote (Global)
+   Stack: Python, web crawling, data processing
+
+4. Kanary | Full Stack Engineer | Remote (US) | Python / React
+   Contact: steven@kanary.com
+
+5. Hotwash | Founding Engineer | REMOTE (US)
+   Contact: hiring@hotwash.com
+
+6. Go.Shop | Product Builder | Remote (GMT to GMT+8)
+   Contact: jobs@goshopbrands.com
+
+7. Join (join.build) | Staff Software Engineer | REMOTE (US & Canada) | $175K–$205K + equity
+   Contact: jon@join.build
+
+8. PostHog | Product Engineers | REMOTE (all remote) | GMT-8 to GMT+2
+
+9. Emergences Labs | AI/Systems Engineer | REMOTE (US) | $120K-$150K
+   Contact: jack@emergences.ai
+
+## To Apply
+- Tailor resume highlighting Python, web scraping, automation, full-stack experience
+- Reference GitHub portfolio: github.com/ZHOUZHOU-Yvonne
+- Mention relevant projects from portfolio
