@@ -1,5 +1,5 @@
 """
-V2EX 外包节点监控 - 每30分钟抓取新帖，发现匹配项目自动生成回复话术
+V2EX 多节点监控 - 外包/jobs/创造节点，每轮抓取新帖，自动生成回复话术
 """
 import requests, re, json, os, time
 from datetime import datetime
@@ -19,21 +19,25 @@ KEYWORDS = [
 ]
 
 def fetch_posts():
-    try:
-        r = requests.get('https://www.v2ex.com/go/outsourcing', headers=HEADERS, timeout=15)
-        titles = re.findall(r'<span class="item_title"><a[^>]*>(.*?)</a>', r.text)
-        links = re.findall(r'<span class="item_title"><a href="([^"]+)"', r.text)
-        posts = []
-        for t, l in zip(titles, links):
-            posts.append({
-                'title': t.strip(),
-                'url': f'https://www.v2ex.com{l}',
-                'id': l.split('/')[-1].split('#')[0]
-            })
-        return posts
-    except Exception as e:
-        print(f"Fetch error: {e}")
-        return []
+    posts = []
+    # Monitor 3 nodes: outsourcing, jobs, create
+    nodes = ['outsourcing', 'jobs', 'create']
+    for node in nodes:
+        try:
+            r = requests.get(f'https://www.v2ex.com/go/{node}', headers=HEADERS, timeout=15)
+            titles = re.findall(r'<span class="item_title"><a[^>]*>(.*?)</a>', r.text)
+            links = re.findall(r'<span class="item_title"><a href="([^"]+)"', r.text)
+            for t, l in zip(titles, links):
+                pid = l.split('/')[-1].split('#')[0]
+                posts.append({
+                    'title': t.strip(),
+                    'url': f'https://www.v2ex.com{l}',
+                    'id': pid,
+                    'node': node
+                })
+        except Exception as e:
+            print(f"Fetch error ({node}): {e}")
+    return posts
 
 def match_keywords(post):
     text = post['title'].lower()
@@ -87,7 +91,8 @@ def main():
                 'url': post['url'],
                 'keywords': keywords,
                 'pitch': pitch,
-                'time': datetime.now().isoformat()
+                'time': datetime.now().isoformat(),
+                'node': post.get('node', '?')
             })
 
     save_seen(list(seen))
@@ -96,7 +101,7 @@ def main():
         with open(OUTPUT_FILE, 'a') as f:
             for lead in new_leads:
                 f.write(f"\n{'='*60}\n")
-                f.write(f"🔔 {lead['time']}\n")
+                f.write(f"🔔 {lead['time']} [{lead.get('node','?')}]\n")
                 f.write(f"📌 {lead['title']}\n")
                 f.write(f"🔗 {lead['url']}\n")
                 f.write(f"🏷️ 匹配关键词: {', '.join(lead['keywords'])}\n")
