@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>二维码生成 | 在线工具集</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;background:#f5f5f5;color:#333}
+.wrap{max-width:600px;margin:0 auto;padding:20px}
+header{background:#fff;padding:16px 20px;margin-bottom:30px;box-shadow:0 1px 3px rgba(0,0,0,.1)}
+header a{color:#667eea;text-decoration:none;font-size:14px}
+h1{font-size:24px;margin:20px 0 8px}
+.desc{color:#888;margin-bottom:24px}
+.card{background:#fff;border-radius:12px;padding:24px}
+textarea{width:100%;padding:12px;border:1px solid #ddd;border-radius:8px;font-size:16px;resize:vertical;min-height:80px}
+.row{display:flex;gap:12px;margin:16px 0;align-items:center}
+.row label{font-size:14px;color:#666;white-space:nowrap}
+.row input[type=color]{width:40px;height:40px;border:none;cursor:pointer}
+.row input[type=range]{flex:1}
+.btn{display:inline-block;padding:12px 24px;background:#667eea;color:#fff;border:none;border-radius:8px;font-size:16px;cursor:pointer;margin:8px}
+.btn:hover{background:#5a6fd6}
+.qr-wrap{text-align:center;margin:24px 0;display:none}
+.qr-wrap canvas{margin:0 auto;display:block}
+.qr-wrap .btns{margin-top:16px}
+.cta{text-align:center;margin-top:40px;padding:24px;background:#fff;border-radius:12px;border:1px solid #e8e8e8}
+</style>
+</head>
+<body>
+<header><a href="../index.html">← 返回工具集</a></header>
+<div class="wrap">
+<h1>📱 二维码生成</h1>
+<p class="desc">输入文字或链接，一键生成二维码。支持自定义颜色和大小。</p>
+
+<div class="card">
+  <textarea id="text" placeholder="输入文字或网址...">https://</textarea>
+  <div class="row">
+    <label>前景色：</label><input type="color" id="fgColor" value="#000000">
+    <label>背景色：</label><input type="color" id="bgColor" value="#FFFFFF">
+    <label>大小：</label><input type="range" id="size" min="128" max="512" value="256">
+  </div>
+  <button class="btn" id="generate">生成二维码</button>
+  <div class="qr-wrap" id="qrWrap">
+    <canvas id="qrCanvas"></canvas>
+    <div class="btns">
+      <button class="btn" id="download">下载 PNG</button>
+    </div>
+  </div>
+</div>
+
+<div class="cta">
+  <h4>需要定制二维码系统？</h4>
+  <p>批量生成、追踪统计、动态二维码定制 —— 联系微信获取报价</p>
+</div>
+</div>
+
+<script>
+// Simple QR encoder
+const QR = {
+  encode(text) {
+    // Use Google Charts API as simple QR generator
+    const size = document.getElementById('size').value;
+    const fg = document.getElementById('fgColor').value.replace('#','');
+    const bg = document.getElementById('bgColor').value.replace('#','');
+    return `https://api.qrserver.com/v1/create-qr-code/?size=${size}x${size}&data=${encodeURIComponent(text)}&color=${fg}&bgcolor=${bg}`;
+  }
+};
+
+document.getElementById('generate').addEventListener('click', () => {
+  const text = document.getElementById('text').value.trim();
+  if (!text) return;
+  const url = QR.encode(text);
+  const img = new Image();
+  img.crossOrigin = 'anonymous';
+  img.onload = () => {
+    const c = document.getElementById('qrCanvas');
+    c.width = img.width; c.height = img.height;
+    c.getContext('2d').drawImage(img, 0, 0);
+    document.getElementById('qrWrap').style.display = 'block';
+    c.dataset.url = url;
+  };
+  img.src = url;
+});
+
+document.getElementById('download').addEventListener('click', () => {
+  const c = document.getElementById('qrCanvas');
+  const a = document.createElement('a');
+  a.href = c.toDataURL('image/png');
+  a.download = 'qrcode.png';
+  a.click();
+});
+</script>
+</body>
+</html>

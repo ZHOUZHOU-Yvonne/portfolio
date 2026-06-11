@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>图片压缩 | 在线工具集</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;background:#f5f5f5;color:#333}
+.wrap{max-width:700px;margin:0 auto;padding:20px}
+header{background:#fff;padding:16px 20px;margin-bottom:30px;box-shadow:0 1px 3px rgba(0,0,0,.1)}
+header a{color:#667eea;text-decoration:none;font-size:14px}
+h1{font-size:24px;margin:20px 0 8px}
+.desc{color:#888;margin-bottom:24px}
+.drop-zone{border:2px dashed #ccc;border-radius:12px;padding:50px;text-align:center;background:#fff;cursor:pointer;margin-bottom:16px}
+.drop-zone.drag-over{border-color:#667eea;background:#f0f0ff}
+.controls{background:#fff;padding:16px;border-radius:12px;margin:16px 0}
+.controls label{display:block;font-size:14px;color:#666;margin-bottom:4px}
+.controls input[type=range]{width:100%;margin-bottom:12px}
+.preview{background:#fff;border-radius:12px;padding:20px;margin:16px 0;text-align:center;display:none}
+.preview img{max-width:100%;max-height:300px;border-radius:8px}
+.preview .info{font-size:13px;color:#888;margin-top:8px}
+.btn{display:inline-block;padding:12px 24px;background:#667eea;color:#fff;border:none;border-radius:8px;font-size:16px;cursor:pointer;margin:8px}
+.btn:hover{background:#5a6fd6}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.cta{text-align:center;margin-top:40px;padding:24px;background:#fff;border-radius:12px;border:1px solid #e8e8e8}
+</style>
+</head>
+<body>
+<header><a href="../index.html">← 返回工具集</a></header>
+<div class="wrap">
+<h1>🖼️ 图片压缩</h1>
+<p class="desc">压缩 PNG/JPG/WebP 图片，调整质量。本地处理，图片不会上传。</p>
+
+<div class="drop-zone" id="dropZone">
+  <div class="icon" style="font-size:48px">🖼️</div>
+  <p>拖拽图片到此处，或点击选择</p>
+  <input type="file" id="fileInput" accept="image/*" style="display:none">
+</div>
+
+<div class="controls">
+  <label>压缩质量：<span id="qualityVal">80</span>%</label>
+  <input type="range" id="quality" min="10" max="100" value="80">
+  <label>输出格式：</label>
+  <select id="format" style="padding:8px;border-radius:6px;border:1px solid #ccc">
+    <option value="image/jpeg">JPEG</option>
+    <option value="image/png">PNG</option>
+    <option value="image/webp">WebP</option>
+  </select>
+</div>
+
+<button class="btn" id="compressBtn" disabled>压缩下载</button>
+
+<div class="preview" id="preview">
+  <img id="previewImg" src="">
+  <div class="info" id="info"></div>
+</div>
+
+<div class="cta">
+  <h4>需要批量图片处理工具？</h4>
+  <p>承接图片处理自动化工具定制 —— 联系微信获取报价</p>
+</div>
+</div>
+
+<script>
+const dropZone = document.getElementById('dropZone');
+const fileInput = document.getElementById('fileInput');
+const compressBtn = document.getElementById('compressBtn');
+const qualityInput = document.getElementById('quality');
+const qualityVal = document.getElementById('qualityVal');
+const formatSelect = document.getElementById('format');
+const preview = document.getElementById('preview');
+const previewImg = document.getElementById('previewImg');
+const info = document.getElementById('info');
+let selectedFile = null;
+
+qualityInput.addEventListener('input', () => qualityVal.textContent = qualityInput.value);
+dropZone.addEventListener('click', () => fileInput.click());
+dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('drag-over'); });
+dropZone.addEventListener('dragleave', () => dropZone.classList.remove('drag-over'));
+dropZone.addEventListener('drop', e => { e.preventDefault(); dropZone.classList.remove('drag-over'); loadFile(e.dataTransfer.files[0]); });
+fileInput.addEventListener('change', e => loadFile(e.target.files[0]));
+
+function loadFile(file) {
+  if (!file || !file.type.startsWith('image/')) return;
+  selectedFile = file;
+  const reader = new FileReader();
+  reader.onload = e => {
+    previewImg.src = e.target.result;
+    preview.style.display = 'block';
+    info.textContent = `原始大小：${(file.size/1024).toFixed(1)} KB | ${file.type}`;
+    compressBtn.disabled = false;
+  };
+  reader.readAsDataURL(file);
+}
+
+compressBtn.addEventListener('click', () => {
+  const img = new Image();
+  img.onload = () => {
+    const c = document.createElement('canvas');
+    c.width = img.width; c.height = img.height;
+    const ctx = c.getContext('2d');
+    ctx.drawImage(img, 0, 0);
+    c.toBlob(blob => {
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      const ext = formatSelect.value.split('/')[1];
+      a.href = url; a.download = `compressed.${ext}`; a.click();
+      URL.revokeObjectURL(url);
+      info.textContent = `压缩后：${(blob.size/1024).toFixed(1)} KB | 节省 ${((1-blob.size/selectedFile.size)*100).toFixed(0)}%`;
+    }, formatSelect.value, qualityInput.value/100);
+  };
+  img.src = URL.createObjectURL(selectedFile);
+});
+</script>
+</body>
+</html>

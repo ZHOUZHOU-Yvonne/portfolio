@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>图片尺寸调整 | 在线工具集</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;background:#f5f5f5;color:#333}
+.wrap{max-width:700px;margin:0 auto;padding:20px}
+header{background:#fff;padding:16px 20px;margin-bottom:30px;box-shadow:0 1px 3px rgba(0,0,0,.1)}
+header a{color:#667eea;text-decoration:none;font-size:14px}
+h1{font-size:24px;margin:20px 0 8px}
+.desc{color:#888;margin-bottom:24px}
+.drop-zone{border:2px dashed #ccc;border-radius:12px;padding:50px;text-align:center;background:#fff;cursor:pointer;margin-bottom:16px}
+.drop-zone.drag-over{border-color:#667eea;background:#f0f0ff}
+.controls{background:#fff;padding:16px;border-radius:12px;margin:16px 0;display:none}
+.controls .row{display:flex;gap:12px;align-items:center;margin:8px 0}
+.controls label{font-size:14px;color:#666;min-width:60px}
+.controls input[type=number]{width:120px;padding:8px;border:1px solid #ddd;border-radius:6px;font-size:14px}
+.controls input[type=checkbox]{margin-right:4px}
+.preview{background:#fff;border-radius:12px;padding:20px;margin:16px 0;text-align:center;display:none}
+.preview img{max-width:100%;max-height:300px;border-radius:8px}
+.btn{display:inline-block;padding:12px 24px;background:#667eea;color:#fff;border:none;border-radius:8px;font-size:16px;cursor:pointer;margin:8px}
+.btn:hover{background:#5a6fd6}
+.cta{text-align:center;margin-top:40px;padding:24px;background:#fff;border-radius:12px;border:1px solid #e8e8e8}
+</style>
+</head>
+<body>
+<header><a href="../index.html">← 返回工具集</a></header>
+<div class="wrap">
+<h1>📐 图片尺寸调整</h1>
+<p class="desc">调整图片尺寸，支持等比缩放和自定义宽高。本地处理。</p>
+
+<div class="drop-zone" id="dropZone">
+  <div class="icon" style="font-size:48px">📐</div>
+  <p>拖拽图片到此处，或点击选择</p>
+  <input type="file" id="fileInput" accept="image/*" style="display:none">
+</div>
+
+<div class="controls" id="controls">
+  <div class="row"><label>原始尺寸：</label><span id="origSize" style="color:#888"></span></div>
+  <div class="row"><label>宽度(px)：</label><input type="number" id="width" min="1"></div>
+  <div class="row"><label>高度(px)：</label><input type="number" id="height" min="1"></div>
+  <div class="row"><label></label><input type="checkbox" id="keepRatio" checked> 保持比例</div>
+  <button class="btn" id="resizeBtn">调整并下载</button>
+</div>
+
+<div class="preview" id="preview"><img id="previewImg" src=""></div>
+
+<div class="cta">
+  <h4>需要批量图片处理工具？</h4>
+  <p>承接图片批处理自动化工具定制 —— 联系微信获取报价</p>
+</div>
+</div>
+
+<script>
+const dropZone = document.getElementById('dropZone');
+const fileInput = document.getElementById('fileInput');
+const controls = document.getElementById('controls');
+const origSize = document.getElementById('origSize');
+const wInput = document.getElementById('width');
+const hInput = document.getElementById('height');
+const keepRatio = document.getElementById('keepRatio');
+const preview = document.getElementById('preview');
+const previewImg = document.getElementById('previewImg');
+let origW = 0, origH = 0;
+
+dropZone.addEventListener('click', () => fileInput.click());
+dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('drag-over'); });
+dropZone.addEventListener('dragleave', () => dropZone.classList.remove('drag-over'));
+dropZone.addEventListener('drop', e => { e.preventDefault(); dropZone.classList.remove('drag-over'); loadFile(e.dataTransfer.files[0]); });
+fileInput.addEventListener('change', e => loadFile(e.target.files[0]));
+
+function loadFile(file) {
+  if (!file || !file.type.startsWith('image/')) return;
+  const r = new FileReader();
+  r.onload = e => {
+    const img = new Image();
+    img.onload = () => {
+      origW = img.width; origH = img.height;
+      wInput.value = origW; hInput.value = origH;
+      origSize.textContent = `${origW} × ${origH}`;
+      previewImg.src = e.target.result;
+      controls.style.display = 'block';
+      preview.style.display = 'block';
+    };
+    img.src = e.target.result;
+  };
+  r.readAsDataURL(file);
+}
+
+wInput.addEventListener('input', () => { if (keepRatio.checked) hInput.value = Math.round(wInput.value * origH / origW); });
+hInput.addEventListener('input', () => { if (keepRatio.checked) wInput.value = Math.round(hInput.value * origW / origH); });
+
+document.getElementById('resizeBtn').addEventListener('click', () => {
+  const img = new Image();
+  img.onload = () => {
+    const c = document.createElement('canvas');
+    c.width = parseInt(wInput.value); c.height = parseInt(hInput.value);
+    c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
+    c.toBlob(blob => {
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url; a.download = 'resized.png'; a.click();
+      URL.revokeObjectURL(url);
+    }, 'image/png');
+  };
+  img.src = previewImg.src;
+});
+</script>
+</body>
+</html>
