@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>URL 编解码 | DevTools</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;background:#0f172a;color:#e2e8f0}
+.wrap{max-width:800px;margin:0 auto;padding:20px}
+header{background:#1e293b;padding:16px 20px;margin-bottom:30px;border-bottom:1px solid #334155}
+header a{color:#3b82f6;text-decoration:none;font-size:14px}
+h1{font-size:24px;margin:20px 0 8px;color:#f8fafc}
+.desc{color:#94a3b8;margin-bottom:20px}
+.tabs{display:flex;gap:4px;margin-bottom:16px}
+.tab{padding:8px 20px;border:1px solid #334155;background:#1e293b;color:#94a3b8;border-radius:8px 8px 0 0;cursor:pointer;border-bottom:none}
+.tab.active{background:#3b82f6;border-color:#3b82f6;color:#fff}
+.btn{padding:8px 16px;border:1px solid #334155;background:#1e293b;color:#e2e8f0;border-radius:6px;cursor:pointer;font-size:13px;margin-right:8px;margin-bottom:12px}
+.btn.primary{background:#3b82f6;border-color:#3b82f6;color:#fff}
+textarea{width:100%;height:200px;padding:16px;background:#0f172a;border:1px solid #334155;border-radius:8px;color:#e2e8f0;font-family:'SF Mono',Monaco,monospace;font-size:13px;resize:vertical;margin-bottom:12px}
+#output{border:1px solid #334155;border-radius:8px;padding:16px;min-height:80px;font-family:'SF Mono',Monaco,monospace;font-size:13px;word-break:break-all;background:#0f172a;color:#94a3b8}
+</style>
+</head>
+<body>
+<header><a href="../index.html">← 返回工具集</a></header>
+<div class="wrap">
+<h1>🔗 URL 编解码</h1>
+<p class="desc">URL encode 和 decode 工具。快速转换特殊字符。</p>
+<div class="tabs"><button class="tab active" onclick="switchTab('encode')">编码 Encode</button><button class="tab" onclick="switchTab('decode')">解码 Decode</button></div>
+<textarea id="input" placeholder="输入 URL 或文本..."></textarea>
+<div><button class="btn primary" onclick="process()">执行</button><button class="btn" onclick="copyResult()">复制</button></div>
+<div id="output" style="color:#94a3b8">结果将显示在这里</div>
+</div>
+<script>
+let mode='encode';
+function switchTab(t){mode=t;document.querySelectorAll('.tab').forEach((el,i)=>el.classList.toggle('active',(i===0&&t==='encode')||(i===1&&t==='decode')))}
+function process(){const v=document.getElementById('input').value.trim();if(!v)return;const o=document.getElementById('output');try{if(mode==='encode'){o.textContent=encodeURIComponent(v);o.style.color='#86efac'}else{o.textContent=decodeURIComponent(v);o.style.color='#93c5fd'}}catch(e){o.textContent='错误: '+e.message;o.style.color='#ef4444'}}
+function copyResult(){const t=document.getElementById('output').textContent;if(t&&!t.startsWith('错误')){navigator.clipboard.writeText(t)}}
+</script>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>JSON 格式化 | DevTools</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;background:#0f172a;color:#e2e8f0}
+.wrap{max-width:900px;margin:0 auto;padding:20px}
+header{background:#1e293b;padding:16px 20px;margin-bottom:30px;border-bottom:1px solid #334155}
+header a{color:#3b82f6;text-decoration:none;font-size:14px}
+h1{font-size:24px;margin:20px 0 8px;color:#f8fafc}
+.desc{color:#94a3b8;margin-bottom:20px}
+.toolbar{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap}
+.btn{padding:8px 16px;border:1px solid #334155;background:#1e293b;color:#e2e8f0;border-radius:6px;cursor:pointer;font-size:13px}
+.btn:hover{background:#334155}
+.btn.primary{background:#3b82f6;border-color:#3b82f6;color:#fff}
+.btn.primary:hover{background:#2563eb}
+textarea{width:100%;height:280px;padding:16px;background:#0f172a;border:1px solid #334155;border-radius:8px;color:#e2e8f0;font-family:'SF Mono',Monaco,monospace;font-size:13px;resize:vertical}
+pre{background:#0f172a;border:1px solid #334155;border-radius:8px;padding:16px;min-height:200px;max-height:500px;overflow:auto;font-family:'SF Mono',Monaco,monospace;font-size:13px;white-space:pre-wrap;word-break:break-all}
+.error{color:#ef4444;font-size:13px;margin:8px 0}
+.success{color:#22c55e;font-size:13px;margin:8px 0}
+</style>
+</head>
+<body>
+<header><a href="../index.html">← 返回工具集</a></header>
+<div class="wrap">
+<h1>{ } JSON 格式化</h1>
+<p class="desc">格式化、压缩、验证 JSON 数据。支持语法高亮。</p>
+<div class="toolbar">
+  <button class="btn primary" onclick="format()">格式化</button>
+  <button class="btn" onclick="compress()">压缩</button>
+  <button class="btn" onclick="validate()">验证</button>
+  <button class="btn" onclick="copyOutput()">复制</button>
+  <button class="btn" onclick="clearAll()">清空</button>
+</div>
+<textarea id="input" placeholder="粘贴 JSON 数据..."></textarea>
+<div id="msg"></div>
+<pre id="output" style="color:#94a3b8">格式化结果将显示在这里</pre>
+</div>
+<script>
+const input=document.getElementById('input'),output=document.getElementById('output'),msg=document.getElementById('msg');
+function format(){try{const o=JSON.parse(input.value);output.innerHTML=syntaxHighlight(JSON.stringify(o,null,2));msg.className='success';msg.textContent='✅ 有效的 JSON'}
+
+catch(e){msg.className='error';msg.textContent='❌ '+e.message;output.textContent=''}}
+function compress(){try{const o=JSON.parse(input.value);output.textContent=JSON.stringify(o);msg.className='success';msg.textContent='✅ 已压缩'}
+catch(e){msg.className='error';msg.textContent='❌ '+e.message}}
+function validate(){try{JSON.parse(input.value);msg.className='success';msg.textContent='✅ 有效的 JSON'}
+catch(e){msg.className='error';msg.textContent='❌ '+e.message}}
+function copyOutput(){if(output.textContent){navigator.clipboard.writeText(output.textContent);msg.className='success';msg.textContent='✅ 已复制'}}
+function clearAll(){input.value='';output.textContent='';msg.textContent=''}
+function syntaxHighlight(json){json=json.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^"\\])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g,function(m){let cls='number';if(/^"/.test(m)){if(/:$/.test(m))cls='key';else cls='string'}else if(/true|false/.test(m))cls='boolean';else if(/null/.test(m))cls='null';return'<span style="color:'+({key:'#93c5fd',string:'#86efac',number:'#fde68a',boolean:'#c4b5fd',null:'#94a3b8'})[cls]+'">'+m+'</span>'})}
+</script>
+</body>
+</html>

@@ -3,95 +3,61 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="免费在线工具集：PDF处理、图片压缩、二维码生成、文本统计。快速、免费、无需注册。">
-<meta name="keywords" content="在线工具,PDF工具,图片压缩,二维码生成,文本统计,免费工具">
-<title>在线工具集 | PDF处理 · 图片压缩 · 二维码 · 文本统计</title>
+<meta name="description" content="免费在线工具集：JSON格式化、Base64编解码、Markdown转换、密码生成、二维码生成、PDF处理、图片压缩。无需注册。">
+<title>DevTools - 免费在线开发工具集</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;background:#f5f5f5;color:#333;line-height:1.6}
-header{background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.1);position:sticky;top:0;z-index:100}
-header .wrap{max-width:1100px;margin:0 auto;padding:16px 20px;display:flex;justify-content:space-between;align-items:center}
-header h1{font-size:20px;color:#1a1a1a}
-header nav a{color:#666;text-decoration:none;margin-left:24px;font-size:14px}
-.hero{background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;padding:60px 20px;text-align:center}
-.hero h2{font-size:36px;margin-bottom:12px}
-.hero p{font-size:18px;opacity:.9;max-width:600px;margin:0 auto}
+body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;background:#0f172a;color:#e2e8f0;line-height:1.6}
+header{background:#1e293b;border-bottom:1px solid #334155;padding:16px 0;position:sticky;top:0;z-index:100}
+header .wrap{max-width:1100px;margin:0 auto;padding:0 20px;display:flex;justify-content:space-between;align-items:center}
+header h1{font-size:20px;color:#f8fafc}
+header span{color:#94a3b8;font-size:14px}
+.hero{padding:80px 20px 50px;text-align:center;background:linear-gradient(135deg,#1e293b,#0f172a)}
+.hero h2{font-size:40px;color:#f8fafc;margin-bottom:12px}
+.hero p{font-size:18px;color:#94a3b8;max-width:600px;margin:0 auto}
 .tools{max-width:1100px;margin:40px auto;padding:0 20px}
-.tools h3{font-size:24px;margin-bottom:24px;text-align:center}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px}
-.card{background:#fff;border-radius:12px;padding:28px;box-shadow:0 2px 8px rgba(0,0,0,.06);transition:transform .2s,box-shadow .2s;cursor:pointer;text-decoration:none;color:inherit;display:block}
-.card:hover{transform:translateY(-2px);box-shadow:0 4px 16px rgba(0,0,0,.12)}
-.card .icon{font-size:36px;margin-bottom:12px}
-.card h4{font-size:18px;margin-bottom:6px;color:#1a1a1a}
-.card p{color:#888;font-size:14px}
-footer{text-align:center;padding:40px 20px;color:#999;font-size:13px}
-footer a{color:#667eea;text-decoration:none}
-.cta-bar{background:#fff;border-top:2px solid #667eea;padding:20px;text-align:center;margin-top:20px}
-.cta-bar p{color:#666;font-size:14px}
-.cta-bar .highlight{color:#667eea;font-weight:600}
+.tools h3{font-size:24px;margin-bottom:24px;color:#f8fafc}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:16px}
+.card{background:#1e293b;border:1px solid #334155;border-radius:12px;padding:24px;cursor:pointer;text-decoration:none;color:#e2e8f0;transition:all .2s;display:block}
+.card:hover{border-color:#3b82f6;transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.3)}
+.card .icon{font-size:32px;margin-bottom:12px}
+.card h4{font-size:17px;margin-bottom:6px;color:#f8fafc}
+.card p{color:#94a3b8;font-size:14px}
+.cta{text-align:center;padding:50px 20px;margin:20px 0;background:#1e293b;border:1px solid #334155;border-radius:12px}
+.cta h4{font-size:20px;margin-bottom:8px}
+.cta p{color:#94a3b8}
+footer{text-align:center;padding:30px;color:#64748b;font-size:13px;border-top:1px solid #1e293b}
+footer a{color:#3b82f6;text-decoration:none}
 </style>
 </head>
 <body>
 
-<header>
-  <div class="wrap">
-    <h1>在线工具集</h1>
-    <nav>
-      <a href="#tools">工具</a>
-      <a href="#contact">定制服务</a>
-    </nav>
-  </div>
-</header>
+<header><div class="wrap"><h1>DevTools</h1><span>免费在线开发工具</span></div></header>
 
 <section class="hero">
-  <h2>免费在线工具</h2>
-  <p>无需注册，无需下载，浏览器直接使用。需要定制开发？底部联系我</p>
+  <h2>开发者在线工具箱</h2>
+  <p>11个免费工具。JSON格式化、Base64编解码、Markdown转换、二维码生成、PDF处理。无需注册。</p>
 </section>
 
-<section class="tools" id="tools">
+<section class="tools">
   <h3>全部工具</h3>
   <div class="grid">
-    <a href="tools/pdf-merge.html" class="card">
-      <div class="icon">📄</div>
-      <h4>PDF 合并</h4>
-      <p>多个 PDF 文件合并为一个，完全免费，本地处理不泄露隐私</p>
-    </a>
-    <a href="tools/image-compress.html" class="card">
-      <div class="icon">🖼️</div>
-      <h4>图片压缩</h4>
-      <p>压缩 PNG/JPG/WebP 图片，自定义质量，批量处理</p>
-    </a>
-    <a href="tools/qrcode.html" class="card">
-      <div class="icon">📱</div>
-      <h4>二维码生成</h4>
-      <p>输入文字或链接，一键生成高清二维码，支持自定义颜色</p>
-    </a>
-    <a href="tools/text-counter.html" class="card">
-      <div class="icon">📝</div>
-      <h4>字数统计</h4>
-      <p>统计中英文字数、字符数、段落数、行数，支持实时统计</p>
-    </a>
-    <a href="tools/image-resize.html" class="card">
-      <div class="icon">📐</div>
-      <h4>图片尺寸调整</h4>
-      <p>调整图片尺寸，支持等比缩放或自定义宽高</p>
-    </a>
-    <a href="tools/color-picker.html" class="card">
-      <div class="icon">🎨</div>
-      <h4>颜色选择器</h4>
-      <p>在线取色，RGB/HEX/HSL 互转，调色板生成</p>
-    </a>
+    <a href="tools/json-formatter.html" class="card"><div class="icon">{ }</div><h4>JSON 格式化</h4><p>格式化、压缩、验证 JSON，语法高亮</p></a>
+    <a href="tools/base64.html" class="card"><div class="icon">64</div><h4>Base64 编解码</h4><p>Base64 编码解码，支持文本和文件</p></a>
+    <a href="tools/markdown.html" class="card"><div class="icon">MD</div><h4>Markdown 预览</h4><p>Markdown 实时预览，支持代码高亮</p></a>
+    <a href="tools/password-gen.html" class="card"><div class="icon">🔑</div><h4>密码生成器</h4><p>强密码生成，自定义长度和字符集</p></a>
+    <a href="tools/url-encode.html" class="card"><div class="icon">🔗</div><h4>URL 编解码</h4><p>URL encode/decode 快速转换</p></a>
+    <a href="tools/qrcode.html" class="card"><div class="icon">📱</div><h4>二维码生成</h4><p>文字/链接生成二维码，自定义颜色</p></a>
+    <a href="tools/pdf-merge.html" class="card"><div class="icon">📄</div><h4>PDF 合并</h4><p>多PDF合并，本地处理不泄露隐私</p></a>
+    <a href="tools/image-compress.html" class="card"><div class="icon">🖼️</div><h4>图片压缩</h4><p>PNG/JPG/WebP 压缩，自定义质量</p></a>
+    <a href="tools/text-counter.html" class="card"><div class="icon">📝</div><h4>字数统计</h4><p>中英文字数、字符数实时统计</p></a>
+    <a href="tools/color-picker.html" class="card"><div class="icon">🎨</div><h4>颜色选择器</h4><p>取色，HEX/RGB/HSL 互转</p></a>
+    <a href="tools/image-resize.html" class="card"><div class="icon">📐</div><h4>图片尺寸调整</h4><p>等比缩放，自定义宽高</p></a>
   </div>
 </section>
 
-<div class="cta-bar" id="contact">
-  <p>需要<b>定制开发</b>？网站、小程序、爬虫、自动化脚本 —— <span class="highlight">联系微信获取报价</span></p>
-  <p style="margin-top:8px;font-size:16px;color:#333">高质量开发 · 快速交付 · 价格合理</p>
-</div>
+<div class="cta"><h4>需要定制开发？</h4><p>网站 · 小程序 · 爬虫 · 自动化 · API对接 — 联系获取报价</p><p style="margin-top:12px;font-size:14px;color:#3b82f6">个人开发者 · 快速交付 · 源码交付</p></div>
 
-<footer>
-  <p>&copy; 2026 在线工具集 | <a href="https://github.com/ZHOUZHOU-Yvonne">GitHub</a></p>
-</footer>
-
+<footer><p>DevTools &copy; 2026 | <a href="https://github.com/ZHOUZHOU-Yvonne">GitHub</a></p></footer>
 </body>
 </html>
