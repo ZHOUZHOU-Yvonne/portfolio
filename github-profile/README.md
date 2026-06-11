@@ -2,28 +2,31 @@
 
 **Full-Stack Developer | Open to freelance & remote opportunities**
 
-### What I can build for you:
-- 🖥️ Company websites & landing pages (3-day delivery)
-- 📱 WeChat Mini Programs (e-commerce, booking, tools)
-- 🕷️ Web scraping & data collection
-- 📊 Excel & report automation
-- ⚙️ API development & system integration
+### What I Build
+🖥️ Websites & Landing Pages | 📱 WeChat Mini Programs | 🕷️ Web Scraping & Data | 📊 Excel Automation | ⚙️ API Integration | 🤖 CLI Tools
 
-### Tech Stack:
-Python | JavaScript | Node.js | React | Vue | WeChat Mini Program | SQL | Docker
+### Open Source Projects
+| Project | Description | Stars |
+|---------|-------------|-------|
+| [QuickScraper](projects/quick-scraper/) | Python web scraping in 3 lines | ⭐ |
+| [Excel Automation](projects/excel-automation/) | Report generation & data processing | ⭐ |
+| [PDF Toolkit](projects/pdf-toolkit/) | Merge, split, extract, compress PDFs | ⭐ |
+| [organize-cli](projects/devtools-cli/) | Tidy folders with one command | ⭐ |
+| [WeChat Mini Program](miniprogram/) | Business showcase + booking template | ⭐ |
 
-### Recent Projects:
-- [Online Tool Suite](https://zhouxhou-yvonne.github.io/portfolio/tools-site/) - Free browser-based tools (PDF, images, QR codes)
-- [Excel Automation Toolkit](https://github.com/ZHOUZHOU-Yvonne/portfolio/tree/main/projects/excel-automation) - Python library for report generation
-- [FinTech Certification Tools](https://github.com/ZHOUZHOU-Yvonne/portfolio) - Compliance automation
+### Free Online Tools (11 tools)
+JSON Formatter · Base64 Encoder · Markdown Preview · Password Generator · URL Encoder · QR Code Generator · PDF Merger · Image Compressor · Image Resizer · Text Counter · Color Picker
 
-### Why work with me:
-- ⚡ Fast delivery (most projects in 1-3 days)
-- 💰 Fair pricing (direct developer, no agency markup)
-- 📦 Complete delivery (source code + deployment + docs)
-- 🔧 30-day free bug fix guarantee
+### Tech Stack
+Python · JavaScript · TypeScript · React · Vue 3 · Node.js · WeChat Mini Program · Playwright · SQL · Docker
 
-### Contact:
-- 📧 zhouyajiezzz@gmail.com
+### Why Work With Me
+- ⚡ **Fast** — Most projects delivered in 1-3 days
+- 💰 **Fair** — Direct developer pricing, no agency markup
+- 📦 **Complete** — Source code + deployment + documentation
+- 🔧 **Reliable** — 30-day free bug fix guarantee
 
-*Currently available for new projects. Let's build something together!*
+### Contact
+📧 zhouyajiezzz@gmail.com
+
+*Currently available for new projects. Let's build something great.*
