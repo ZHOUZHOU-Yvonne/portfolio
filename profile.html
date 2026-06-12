@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="description" content="DevZhou — 独立全栈开发者。Python、微信小程序、爬虫、API对接、自动化。5年经验，3天交付。">
+<title>DevZhou · 独立全栈开发者</title>
+<style>
+:root{--bg:#0a0a0a;--card:#111;--border:#222;--text:#a3a3a3;--hl:#fafafa;--blue:#3b82f6;--green:#22c55e}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--text);line-height:1.7}
+.w{max-width:900px;margin:0 auto;padding:0 24px}
+/* Hero */
+.hero{padding:80px 0 60px;text-align:center}
+.avatar{width:96px;height:96px;border-radius:50%;background:linear-gradient(135deg,#3b82f6,#8b5cf6);display:inline-flex;align-items:center;justify-content:center;font-size:36px;font-weight:800;margin-bottom:24px;color:#fff}
+.hero h1{font-size:42px;color:var(--hl);letter-spacing:-.02em}
+.hero .tagline{font-size:18px;color:#737373;margin:8px 0 24px}
+.hero .badges{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.badge{background:var(--card);border:1px solid var(--border);padding:6px 16px;border-radius:20px;font-size:13px;color:var(--text)}
+.badge.avail{background:#052e16;border-color:#166534;color:var(--green)}
+/* Stats */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:40px 0}
+.stat{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:24px;text-align:center}
+.stat .num{font-size:32px;font-weight:800;color:var(--hl)}
+.stat .label{font-size:13px;color:#737373;margin-top:4px}
+@media(max-width:600px){.stats{grid-template-columns:repeat(2,1fr)}}
+/* Sections */
+.section{margin:60px 0}
+.section h2{font-size:24px;color:var(--hl);margin-bottom:24px;padding-bottom:12px;border-bottom:1px solid var(--border)}
+/* Services */
+.grid2{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:28px;transition:all .2s}
+.card:hover{border-color:var(--blue)}
+.card .icon{font-size:28px;margin-bottom:12px}
+.card h3{font-size:17px;color:var(--hl);margin-bottom:6px}
+.card p{font-size:14px;color:#737373}
+/* Projects */
+.project{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:24px;margin-bottom:12px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.project .info h4{font-size:16px;color:var(--hl)}
+.project .info p{font-size:13px;color:#737373;margin-top:4px}
+.project .tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.tag{background:#1e1e1e;border:1px solid var(--border);padding:2px 10px;border-radius:12px;font-size:12px;color:var(--blue)}
+.project a{color:var(--blue);font-size:14px;text-decoration:none}
+.project a:hover{text-decoration:underline}
+/* Pricing */
+.price-row{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px}
+.price-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:32px;text-align:center}
+.price-card h3{font-size:18px;color:var(--hl);margin-bottom:12px}
+.price-card .price{font-size:36px;font-weight:800;color:var(--blue)}
+.price-card .price small{font-size:14px;font-weight:400;color:#737373}
+.price-card ul{list-style:none;margin:20px 0;text-align:left}
+.price-card li{padding:6px 0;font-size:14px;color:#737373}
+.price-card li::before{content:'✓ ';color:var(--green)}
+/* CTA */
+.cta{background:linear-gradient(135deg,#111,#1a1a2e);border:1px solid var(--border);border-radius:16px;padding:48px;text-align:center;margin:60px 0}
+.cta h2{font-size:28px;color:var(--hl);border:none;margin-bottom:8px;padding:0}
+.cta p{color:#737373;margin-bottom:24px;font-size:16px}
+.cta .contact-row{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+.contact-item{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:12px 20px;font-size:14px;color:var(--text)}
+.contact-item a{color:var(--blue);text-decoration:none}
+footer{text-align:center;padding:40px;color:#404040;font-size:13px}
+</style>
+</head>
+<body>
+
+<section class="hero">
+<div class="w">
+<div class="avatar">DZ</div>
+<h1>DevZhou</h1>
+<p class="tagline">独立全栈开发者 · 5年经验 · 快速交付 · 源码+部署+售后</p>
+<div class="badges">
+<span class="badge avail">● 可接新项目</span>
+<span class="badge">Python</span><span class="badge">小程序</span><span class="badge">爬虫</span><span class="badge">API对接</span><span class="badge">自动化</span>
+</div>
+</div>
+</section>
+
+<div class="w">
+<div class="stats">
+<div class="stat"><div class="num">12+</div><div class="label">开源项目</div></div>
+<div class="stat"><div class="num">5</div><div class="label">年开发经验</div></div>
+<div class="stat"><div class="num">1-3天</div><div class="label">交付周期</div></div>
+<div class="stat"><div class="num">30天</div><div class="label">免费售后</div></div>
+</div>
+</div>
+
+<div class="w">
+<div class="section">
+<h2>服务范围</h2>
+<div class="grid2">
+<div class="card"><div class="icon">🖥️</div><h3>网站 & 落地页</h3><p>企业官网、产品落地页，响应式设计，3天交付</p></div>
+<div class="card"><div class="icon">📱</div><h3>微信小程序</h3><p>商城、预约、企业展示，全流程开发上线</p></div>
+<div class="card"><div class="icon">🕷️</div><h3>爬虫 & 数据采集</h3><p>电商数据、公开信息抓取，反爬处理，定时任务</p></div>
+<div class="card"><div class="icon">📊</div><h3>Excel 自动化</h3><p>报表生成、数据合并、格式处理，告别重复劳动</p></div>
+<div class="card"><div class="icon">⚙️</div><h3>API 对接</h3><p>第三方接口集成、数据同步、签名认证</p></div>
+<div class="card"><div class="icon">🔧</div><h3>自动化脚本</h3><p>文件批处理、运维脚本、工作流自动化</p></div>
+</div>
+</div>
+
+<div class="section">
+<h2>代表项目</h2>
+<div class="project"><div class="info"><h4>QuickScraper — Python爬虫框架</h4><p>3行代码提取任意网页数据，支持分页、自动导出</p><div class="tags"><span class="tag">Python</span><span class="tag">爬虫</span><span class="tag">开源</span></div></div><a href="https://github.com/ZHOUZHOU-Yvonne/portfolio/tree/main/projects/quick-scraper">GitHub →</a></div>
+<div class="project"><div class="info"><h4>Excel自动化工具包</h4><p>报表生成、数据合并拆分、格式清洗，支持大文件</p><div class="tags"><span class="tag">Python</span><span class="tag">Excel</span><span class="tag">开源</span></div></div><a href="https://github.com/ZHOUZHOU-Yvonne/portfolio/tree/main/projects/excel-automation">GitHub →</a></div>
+<div class="project"><div class="info"><h4>微信小程序模板</h4><p>企业展示+在线预约，完整源码，可直接商用</p><div class="tags"><span class="tag">小程序</span><span class="tag">模板</span></div></div><a href="https://github.com/ZHOUZHOU-Yvonne/portfolio/tree/main/miniprogram">GitHub →</a></div>
+<div class="project"><div class="info"><h4>在线开发工具集</h4><p>12个免费工具：JSON格式化、PDF合并、二维码生成等</p><div class="tags"><span class="tag">Web</span><span class="tag">工具</span><span class="tag">SEO</span></div></div><a href="tools-site/">在线使用 →</a></div>
+</div>
+
+<div class="section">
+<h2>报价参考</h2>
+<div class="price-row">
+<div class="price-card"><h3>网站开发</h3><div class="price">¥1,500-4,000<small>/个</small></div><ul><li>企业官网/落地页</li><li>响应式设计</li><li>SEO优化</li><li>源码+部署</li></ul></div>
+<div class="price-card"><h3>小程序开发</h3><div class="price">¥3,000-8,000<small>/个</small></div><ul><li>商城/预约/工具类</li><li>全流程开发</li><li>审核上线指导</li><li>30天售后</li></ul></div>
+<div class="price-card"><h3>爬虫 & 自动化</h3><div class="price">¥1,000-3,000<small>/个</small></div><ul><li>数据采集脚本</li><li>定时任务</li><li>反爬处理</li><li>数据清洗导出</li></ul></div>
+<div class="price-card"><h3>API对接</h3><div class="price">¥2,000-5,000<small>/个</small></div><ul><li>电商平台接口</li><li>支付网关</li><li>数据同步方案</li><li>错误重试机制</li></ul></div>
+</div>
+</div>
+
+<div class="cta">
+<h2>有项目需要开发？</h2>
+<p>免费评估报价 · 1-3天交付 · 源码+部署+文档+30天售后</p>
+<div class="contact-row">
+<div class="contact-item">📧 <a href="mailto:zhouyajiezz@gmail.com">zhouyajiezz@gmail.com</a></div>
+<div class="contact-item">🐙 <a href="https://github.com/ZHOUZHOU-Yvonne">GitHub</a></div>
+<div class="contact-item">🌐 <a href="https://zhouxhou-yvonne.github.io/portfolio/">Portfolio</a></div>
+</div>
+</div>
+</div>
+
+<footer><p>DevZhou · 独立全栈开发者 · 2026</p></footer>
+</body>
+</html>
