@@ -21,7 +21,7 @@ KEYWORDS = [
 def fetch_posts():
     posts = []
     # Monitor 3 nodes: outsourcing, jobs, create
-    nodes = ['outsourcing', 'jobs', 'create']
+    nodes = ['outsourcing', 'jobs', 'create', 'work', 'freelance']
     for node in nodes:
         try:
             r = requests.get(f'https://www.v2ex.com/go/{node}', headers=HEADERS, timeout=15)
