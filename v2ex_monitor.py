@@ -19,14 +19,19 @@ KEYWORDS = [
 ]
 
 def fetch_posts():
+    import subprocess
     posts = []
-    # Monitor 3 nodes: outsourcing, jobs, create
     nodes = ['outsourcing', 'jobs', 'create', 'work', 'freelance']
     for node in nodes:
         try:
-            r = requests.get(f'https://www.v2ex.com/go/{node}', headers=HEADERS, timeout=15)
-            titles = re.findall(r'<span class="item_title"><a[^>]*>(.*?)</a>', r.text)
-            links = re.findall(r'<span class="item_title"><a href="([^"]+)"', r.text)
+            result = subprocess.run(
+                ['curl', '-s', '--connect-timeout', '10', f'https://www.v2ex.com/go/{node}'],
+                capture_output=True, text=True, timeout=20
+            )
+            if result.returncode != 0:
+                continue
+            titles = re.findall(r'<span class="item_title"><a[^>]*>(.*?)</a>', result.stdout)
+            links = re.findall(r'<span class="item_title"><a href="([^"]+)"', result.stdout)
             for t, l in zip(titles, links):
                 pid = l.split('/')[-1].split('#')[0]
                 posts.append({
@@ -36,7 +41,7 @@ def fetch_posts():
                     'node': node
                 })
         except Exception as e:
-            print(f"Fetch error ({node}): {e}")
+            pass  # V2EX unreachable - skip silently
     return posts
 
 def match_keywords(post):
